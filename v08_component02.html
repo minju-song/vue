@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v08_component02</title>
+    <script src="https://unpkg.com/vue@2"></script>
+</head>
+<body>
+    <template id="listTemp">
+        <li v-bind:class="countries">{{myMsg}} , {{myCount}} : 
+            <span v-for="c in countries">{{c}} </span>
+        </li>
+    </template>
+
+    <script>
+        Vue.component('list-component', {
+            template : '#listTemp',
+            // props : ['myMsg', 'myCount']
+
+            //데이터유형 지정
+            props : {
+                myMsg : {
+                    type : String,
+                    default : '안녕'
+                },
+                myCount : {
+                    type : Number,
+                    required : true
+                },
+                countries : {
+                    type : Array,
+                    default() {
+                        return ['대한민국']
+                    }
+                }
+            }
+        })
+    </script>
+
+    <div id="app">
+        <ul>
+            <list-component my-msg="A" v-bind:my-count="100" v-bind:countries="['미국','영국','호주']"></list-component>
+            <list-component my-msg="B" v-bind:my-count="150" v-bind:countries="['베트남']"></list-component>
+            <list-component my-msg="C" v-bind:my-count="200" v-bind:countries="['중국', '대만']"></list-component>
+            <list-component v-bind:my-count="300"></list-component>
+        </ul>
+    </div>
+    
+    <script>
+        new Vue({
+            el : '#app'
+        })
+    </script>
+</body>
+</html>

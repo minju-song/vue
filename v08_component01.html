@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v08_component01</title>
+    <script src="https://unpkg.com/vue@2"></script>
+</head>
+<body>
+    <template id="timeTemplate">
+        <!-- 템플릿 안에는 제일 상위 태그요소 하나만 존재해야함 -->
+        <div>
+            <p></p>
+            <span>현재 시간 :  {{currentTime}}</span>
+            <button @click="timeClick">현재시간</button>
+        </div>
+    </template>
+
+    <script>
+        Date.prototype.timeFormat = function() {
+            // yyyy-MM-dd HH:mm:ss
+            let today = new Date();
+
+            let year = today.getFullYear();
+            let month = ('0' + (today.getMonth() + 1)).slice(-2);
+            let day = ('0' + today.getDate()).slice(-2);          
+            var hours = ('0' + today.getHours()).slice(-2); 
+            var minutes = ('0' + today.getMinutes()).slice(-2);
+            var seconds = ('0' + today.getSeconds()).slice(-2); 
+
+            let dateString = year + '년 ' + month  + '월' + day+'일';
+            var timeString = hours + '시' + minutes  + '분' + seconds+'초';
+
+            return dateString+' => '+timeString;
+        }
+
+        Vue.component('time-component', {
+            template : '#timeTemplate',
+            data : function() {
+                return {
+                    currentTime : (new Date()).timeFormat()
+                }
+            },
+            methods : {
+                timeClick() {
+                    this.currentTime = (new Date()).timeFormat();
+                }
+            }
+        })
+    </script>
+
+    <div id="app">
+        <time-component></time-component>
+        <time-component></time-component>
+        <my-component></my-component> 
+        <!--지역 component -->
+    </div>
+
+    <script>
+        new Vue({
+            el:'#app',
+            data : {
+                ctime : ''
+            },
+            components : {
+                'my-component' : {
+                    template : '<div>Hello, {{msg}}</div>',
+                    data : function() {
+                        return {
+                            msg : 'hello'
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+
+<div id="app2">
+    <time-component></time-component>
+    <time-component></time-component>
+    <my-component></my-component>
+</div>
+
+<script>
+    new Vue({
+        el:'#app2',
+        data : {
+            ctime : ''
+        },
+        components : {
+                'my-component' : {
+                    template : '<div>Hello, {{msg}}</div>',
+                    data : function() {
+                        return {
+                            msg : 'hi'
+                        }
+                    }
+                }
+            }
+    })
+</script>
+</body>
+</html>

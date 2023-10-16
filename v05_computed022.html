@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>컴포넌트</title>
+    <script src="https://unpkg.com/vue@2"></script>
+</head>
+<body>
+
+
+    <template id="search">
+        <div>
+            <input v-model="searchWords" v-on:keyup.enter="keyupEvent"> 
+        </div>
+    </template>
+
+    <script>
+        Vue.component('search-component', {
+            template : '#search',
+            data : function() {
+                return {
+                    searchWords : ''
+                }
+            },
+            methods : {
+                keyupEvent() {
+                    this.$emit('search', this.searchWords);
+                }
+            }
+
+        })
+    </script>
+
+    <template id="list">
+        <div>
+            <ul>
+                <li v-for="item in findItems">{{item}}</li>
+            </ul> 
+        </div>
+    </template>
+
+    <script>
+        Vue.component('list-component', {
+            template : '#list',
+            props : ['findItems']
+        })
+    </script>
+
+
+    <template id="searchListTemplate">
+        <div>
+            <search-component v-on:search="searchEvent"></search-component>
+            <list-component v-bind:find-items="resultArr"></list-component>
+            <div v-show="isProcessing">조회 중</div>
+        </div>
+    </template>
+
+
+    <script>
+        let list = ['hello','world','nice','friend','happy'];
+        
+        Vue.component('search-list-component', {
+            template : '#searchListTemplate',
+            data : function(){
+                return {
+                    isProcessing : false,
+                    dataList: list,
+                    resultArr : list,
+                }
+            },
+            methods : {
+                searchEvent(name) {
+                    let resultAry = [];
+                    this.isProcessing = true;
+                    resultAry = this.dataList.filter(item => {
+                        return item.indexOf(name) > -1;
+                    })
+                    this.isProcessing = false;
+                    this.resultArr = resultAry;
+                    if(name == '') this.resultArr = this.dataList;
+                }
+            }
+        })
+    </script>
+
+    <div id="app">
+        <search-list-component></search-list-component>
+    </div>
+    <script>
+        new Vue({
+            el:'#app'
+        })
+    </script>
+</body>
+</html>

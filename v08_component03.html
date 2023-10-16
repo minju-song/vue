@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v08_component03</title>
+    <script src="https://unpkg.com/vue@2"></script>
+    <script src="./v08_data.js"></script>
+    <style>
+        #list {
+            width: 400px;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        
+        #list td,
+        #list th {
+            border: 1px solid black;
+            text-align: center;
+        }
+        
+        #list>thead>tr {
+            color: rgb(253, 253, 135);
+            background-color: palevioletred;
+        }
+    </style>
+</head>
+<body>
+    <template id="contactTemplate">
+        <div>
+            <table id="list">
+                <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>이름</th>
+                        <th>연락처</th>
+                        <th>주소</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="c in contacts">
+                        <td>{{c.no}}</td>
+                        <td>{{c.name}}</td>
+                        <td>{{c.tel}}</td>
+                        <td>{{c.address}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </template>
+    <script>
+        Vue.component('contact-list', {
+            template : '#contactTemplate',
+            props : {
+                contacts : {
+                    type : Array,
+                    default() {
+                        return []
+                    }
+                }
+            }
+        })
+    </script>
+    
+    <div id="app">
+        <h3>예방 접종</h3>
+        <h4>1차 예방</h4>
+        <contact-list v-bind:contacts="list1"></contact-list>
+        <h4>2차 예방</h4>
+        <contact-list v-bind:contacts="list2"></contact-list>
+    </div>
+    <script>
+        new Vue({
+            el : '#app',
+            data : {
+                list1,
+                list2
+            }
+        })
+    </script>
+</body>
+</html>

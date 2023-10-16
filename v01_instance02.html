@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v01_instance02.html</title>
+    <script src="https://unpkg.com/vue@2"></script>
+</head>
+<body>
+    <div id="app01">
+        <p v-html="text"></p>
+        {{name}} : {{age}}살
+    </div>
+
+    <script>
+
+        var minju = new Vue({
+            el: '#app01',
+            data: {
+                name : "minju",
+                age : 26,
+                text : '<h2>minju짱</h2>'
+            }
+        })
+    </script>
+
+    <div id="app02">
+        <p>{{num*2}}</p>
+        <p>{{txt+' 과목'}}</p>
+        <p>{{bool}}</p>
+        <p>{{arr[0]}}</p>
+        <p>{{obj.name}} {{obj.age}}</p>
+        <p>{{fnc()}}</p>
+    </div>
+
+
+    <script>
+        let three = 3;
+
+        new Vue({
+            el : '#app02',
+            data : {
+                num : 10,
+                txt : 'Vue.js',
+                bool : true,
+                arr : ['다즐링', '얼그레이', '실론'],
+                obj : {
+                    name : '민주',
+                    age : '26'
+                },
+                fnc : function() {
+                    return three*5
+                }
+            }
+        })
+
+    </script>
+</body>
+</html>

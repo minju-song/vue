@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v05_watch.html</title>
+    <script src="https://unpkg.com/vue@2"></script>
+</head>
+<body>
+    <div id="app">
+        X : <input type="number" v-model="x"> <br>
+        Y : <input type="number" v-model="y"> <br>
+        Result : {{sum}}
+    </div>
+
+    <script>
+        new Vue({
+            el:'#app',
+            data : {
+                x : 0,
+                y : 0,
+                sum : 0
+            },
+            watch : {
+                x : function(afterVal, beforeVal) {
+                    this.sum = Number(this.y) + Number(afterVal);
+                },
+                y : function(afterVal, beforeVal) {
+                    this.sum = Number(this.x) + Number(afterVal);
+                },
+            }
+        })
+    </script>
+</body>
+</html>

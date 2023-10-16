@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v01_instance04.html</title>
+    <script src="https://unpkg.com/vue@2"></script>
+    <style>
+               .container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.form_area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #EDDCD9;
+  height: auto;
+  width: auto;
+  border: 2px solid #264143;
+  border-radius: 20px;
+  box-shadow: 3px 4px 0px 1px #E99F4C;
+}
+
+.title {
+  color: #264143;
+  font-weight: 900;
+  font-size: 1.5em;
+  margin-top: 20px;
+}
+
+.sub_title {
+  font-weight: 600;
+  margin: 5px 0;
+}
+
+.form_group {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  margin: 10px;
+}
+
+.form_style {
+  outline: none;
+  border: 2px solid #264143;
+  box-shadow: 3px 4px 0px 1px #E99F4C;
+  width: 290px;
+  padding: 12px 10px;
+  border-radius: 4px;
+  font-size: 15px;
+}
+
+.form_style:focus, .btn:focus {
+  transform: translateY(4px);
+  box-shadow: 1px 2px 0px 0px #E99F4C;
+}
+
+.btn {
+  padding: 15px;
+  margin: 25px 0px;
+  width: 290px;
+  font-size: 15px;
+  background: #DE5499;
+  border-radius: 10px;
+  font-weight: 800;
+  box-shadow: 3px 3px 0px 0px #E99F4C;
+}
+
+.btn:hover {
+  opacity: .9;
+}
+
+.link {
+  font-weight: 800;
+  color: #264143;
+  padding: 5px;
+}
+
+.heart-container {
+  --heart-color: rgb(255, 91, 137);
+  position: relative;
+  width: 50px;
+  height: 50px;
+  transition: .3s;
+}
+
+.heart-container .checkbox {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 20;
+  cursor: pointer;
+}
+
+.heart-container .svg-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heart-container .svg-outline,
+        .heart-container .svg-filled {
+  fill: var(--heart-color);
+  position: absolute;
+}
+
+.heart-container .svg-filled {
+  animation: keyframes-svg-filled 1s;
+  display: none;
+}
+
+.heart-container .svg-celebrate {
+  position: absolute;
+  animation: keyframes-svg-celebrate .5s;
+  animation-fill-mode: forwards;
+  display: none;
+  stroke: var(--heart-color);
+  fill: var(--heart-color);
+  stroke-width: 2px;
+}
+
+.heart-container .checkbox:checked~.svg-container .svg-filled {
+  display: block
+}
+
+.heart-container .checkbox:checked~.svg-container .svg-celebrate {
+  display: block
+}
+
+@keyframes keyframes-svg-filled {
+  0% {
+    transform: scale(0);
+  }
+
+  25% {
+    transform: scale(1.2);
+  }
+
+  50% {
+    transform: scale(1);
+    filter: brightness(1.5);
+  }
+}
+
+@keyframes keyframes-svg-celebrate {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    opacity: 1;
+    filter: brightness(1.5);
+  }
+
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+    display: none;
+  }
+}
+    </style>
+</head>
+<body>
+    <!-- v-model 양방향 처리 -->
+
+    <div id="app1" class="container">
+        <div class="form_area">
+            <p class="title">Vue</p>
+            <form action="">
+                <div class="form_group">
+                    <label class="sub_title" for="name">Name</label>
+                    <input placeholder="이름을 입력하세요" class="form_style" v-model="myName" type="text">
+                </div>
+                <div class="form_group">
+                    <label class="sub_title" for="email">{{myName}}님 문장입력</label>
+                    <!-- <input placeholder="Enter Number" id="email" class="form_style" v-model="number2" type="number"> -->
+                    <textarea class="form_style" cols="30" rows="10" v-model="myTxt"></textarea>
+                    
+                </div>
+                <div class="form_group">
+                    <label class="sub_title">문장은 -> {{myTxt}}</label>
+                    <label class="sub_title">문장 글자수는  {{myTxt.length}}자</label>
+                    <!-- <input placeholder="This is Result" id="password" class="form_style" v-model="result" type="number" readonly> -->
+                </div>
+
+                <div class="form_group">
+                    <label class="sub_title">좋아요의 상태값은 {{myCheck}}</label>
+                    <!-- <input type="checkbox" v-model="myCheck" true-value="yes" false-value="no"> -->
+                    <div class="heart-container" title="Like">
+                        <input type="checkbox" v-model="myCheck" class="checkbox" id="Give-It-An-Id" true-value="yes" false-value="no">
+                        <div class="svg-container">
+                            <svg viewBox="0 0 24 24" class="svg-outline" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Zm-3.585,18.4a2.973,2.973,0,0,1-3.83,0C4.947,16.006,2,11.87,2,8.967a4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,11,8.967a1,1,0,0,0,2,0,4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,22,8.967C22,11.87,19.053,16.006,13.915,20.313Z">
+                                </path>
+                            </svg>
+                            <svg viewBox="0 0 24 24" class="svg-filled" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Z">
+                                </path>
+                            </svg>
+                            <svg class="svg-celebrate" width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+                                <polygon points="10,10 20,20"></polygon>
+                                <polygon points="10,50 20,50"></polygon>
+                                <polygon points="20,80 30,70"></polygon>
+                                <polygon points="90,10 80,20"></polygon>
+                                <polygon points="90,50 80,50"></polygon>
+                                <polygon points="80,80 70,70"></polygon>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn">ADD(+)</button>
+                    <p>Have an Account? <a class="link" href="">Login Here!</a></p><a class="link" href="">
+                </a></div><a class="link" href="">
+            
+        </a></form></div><a class="link" href="">
+    </a></div>
+
+    <script>
+        new Vue({
+            el: '#app1',
+            data : {
+                myName:'송민주',
+                myTxt: '',
+                myCheck : 'no',
+            }
+        })
+    </script>
+</body>
+</html>
