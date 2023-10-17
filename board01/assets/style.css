@@ -15,35 +15,67 @@ input,button,select,optgroup,textarea,table {
 }
 
 button {
+	--bg: #e74c3c;
+	--text-color: #fff;
+	position: relative;
+	width: 70px;
+	border: none;
+	background: var(--bg);
+	color: var(--text-color);
+	padding: 5px;
+	font-size: small;
+	font-weight: bold;
+	text-transform: uppercase;
+	transition: 0.2s;
+	border-radius: 5px;
+	opacity: 0.8;
+	letter-spacing: 1px;
+	box-shadow: #c0392b 0px 7px 2px, #000 0px 8px 5px;
+  }
+  
+  button:hover {
+	opacity: 1;
+  }
+  
+  button:active {
+	top: 4px;
+	box-shadow: #c0392b 0px 3px 2px,#000 0px 3px 5px;
+  }
+/* 
+button {
 	cursor: pointer;
 	padding: 6px 12px;
 	border-radius: 6px;
 	color: #fff;
 	border: 2px;
-	background-color: #007bff;
+	background-color: pink;
 	transition: background-color .2s
 }
 button:hover {
-	background-color: #0069d9;
+	background-color: palevioletred;
 }
 button:active {
-	background-color: #003c7c;
+	background-color: palevioletred;
 }
 button:disabled {
 	opacity: .5;
 	pointer-events: none;
-}
+} */
+
+
 
 input {
 	padding: 6px 12px;
 	border-radius: 6px;
-	color: #495057;
+	color: #f59acf;
 	border: 2px solid #ced4da;
 }
 
 textarea {
 	width: 500px;
 	height: 200px;
+	color: #f59acf;
+
 }
 select {
 	border: 2px solid #ced4da;
@@ -68,6 +100,6 @@ select {
 	padding-top: 12px;
 	padding-bottom: 12px;
 	text-align: left;
-	background-color: #4CAF50;
+	background-color: palevioletred;
 	color: white;
 }
