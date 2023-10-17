@@ -8,7 +8,8 @@ import myBoardRead from "./components/myBoardRead.js";
 
 const template = `
     <div>
-        <my-header></my-header>
+        <my-header v-on:load-data="loadData"></my-header>
+        <br>
         <my-board-list v-if="listOK" v-bind:boards="dataArray.board"
                                     v-on:board-write="boardWrite"
                                     v-on:board-read="boardRead"
@@ -72,20 +73,25 @@ new Vue({
                 return item.no != no;
             })
             }
+        },
+        loadData(data) {
+            // console.log(data.board);
+            this.dataArray = data;
+            this.boardList();
         }
         
     },
     created : function() {
         //board.json 데이터를 목록에 출력
-        fetch('./data/board.json')
-        .then(response => response.json())
-        .then(result => {
-            this.dataArray = result;
-            this.boardList();
-        })
-        .catch(err => {
-            console.log('err : '+err);
-        })
+        // fetch('./data/board.json')
+        // .then(response => response.json())
+        // .then(result => {
+        //     this.dataArray = result;
+        //     this.boardList();
+        // })
+        // .catch(err => {
+        //     console.log('err : '+err);
+        // })
     },
 
 })
