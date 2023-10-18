@@ -97,10 +97,36 @@ const template = `
 
 export default {
     template,
-    props : ['order','states'],
+    data : function() {
+      return {
+        order: {
+          firstName: '',
+          lastName: '',
+          address: '',
+          city: '',
+          zip: '',
+          state: '',
+          method: '자택 주소',
+          business: '직장 주소',
+          home: '자택 주소',
+          gift:'선물로 보내기',
+          sendGift: '선물로 보내기',
+          dontSendGift: '선물로 보내기 않기'
+        },
+        states: {
+          AL: '알라바마',
+          AK: '알래스카',
+          AR: '애리조나',
+          CA: '캘리포니아',
+          NV: '네바다'
+        },
+      }
+    },
     methods : {
         submitForm(){
             this.$emit('submit');
+            [this.order.firstName,this.order.lastName,this.order.address,this.order.city, this.order.state, this.order.zip,this.order.gift,this.order.method]
+            = ['','','','','','','',''];
             
         }
     }
